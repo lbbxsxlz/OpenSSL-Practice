@@ -17,3 +17,8 @@ sudo make install
 ```
 
 include header path: /usr/local/include/openssl
+
+## how to compile
+```Bash
+gcc genCert.c -o genCert -lcrypto
+```
