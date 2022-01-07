@@ -3,11 +3,14 @@
 #include <stdbool.h>
 #include <unistd.h>
 
+#include <openssl/rsa.h>
+#include <openssl/evp.h>
+#include <openssl/bn.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
-/* Generates a 2048-bit RSA key. */
+/* Generates a 3072-bit RSA key. */
 EVP_PKEY* generate_rsa_key()
 {
     int ret = 0;
@@ -25,7 +28,7 @@ EVP_PKEY* generate_rsa_key()
     }
     
     /* Generate the RSA key and assign it to pkey. */
-    //rsa = RSA_generate_key(2048, RSA_F4, NULL, NULL);
+    //rsa = RSA_generate_key(3072, RSA_F4, NULL, NULL);
     BIGNUM *bne = BN_new();
     if (!bne) {
         printf("get BigNum structure fail \n");
@@ -38,14 +41,14 @@ EVP_PKEY* generate_rsa_key()
         goto quit;
     }
     
-    ret = RSA_generate_key_ex(rsa, 2048, bne, NULL);
+    ret = RSA_generate_key_ex(rsa, 3072, bne, NULL);
     if (!ret) {
         printf("generate rsa key fail \n");
         goto quit;
     }
     
     if(!EVP_PKEY_assign_RSA(pkey, rsa)) {
-        printf("Unable to generate 2048-bit RSA key.\n");
+        printf("Unable to generate 3072-bit RSA key.\n");
         goto quit;
     }
     
@@ -68,7 +71,7 @@ quit:
 }
 
 /* Generates a self-signed x509 certificate. */
-X509* generate_x509(EVP_PKEY * pkey)
+X509* generate_x509(EVP_PKEY *pkey)
 {
     /* Allocate memory for the X509 structure. */
     X509 * x509 = X509_new();
@@ -112,7 +115,7 @@ X509* generate_x509(EVP_PKEY * pkey)
     return x509;
 }
 
-bool write_to_disk(EVP_PKEY * pkey, X509 * x509)
+bool write_to_disk(EVP_PKEY *pkey, X509 *x509)
 {
     /* Open the PEM file for writing the key to disk. */
     FILE *pkey_file = fopen("rsakey.pem", "wb");
