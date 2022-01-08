@@ -22,7 +22,7 @@ int hash(const char *algo, const char *input, unsigned int len)
         return -1;
     }
     
-    const EVP_MD * md = EVP_get_digestbyname(algo);
+    const EVP_MD *md = EVP_get_digestbyname(algo);
     if (md == NULL) {
         printf("unable to find the digest func: %s\n", algo);
         return -1;
@@ -50,14 +50,12 @@ int hash(const char *algo, const char *input, unsigned int len)
     output_hex(md_value, md_len);
 }
 
-int main() 
+int main(int argc, char **argv) 
 {
     unsigned int len = 0;
-
     const char *txt = "Hello world, hello hash!";
     const char *keyStr = "123456789abcdef";
-    
-    
+   
     //printf("0x%lx \n", OpenSSL_version_num());
     //printf("SHA512_DIGEST_LENGTH = %d \n", SHA512_DIGEST_LENGTH);
     unsigned char digest[SHA512_DIGEST_LENGTH];
@@ -77,8 +75,6 @@ int main()
     hash("SHA256", txt, sizeof(txt));
     hash("SHA384", txt, sizeof(txt));
     hash("SHA512", txt, sizeof(txt));
-    hash("MD5", txt, sizeof(txt));
 
     return 0;
 }
-
