@@ -20,5 +20,8 @@ include header path: /usr/local/include/openssl
 
 ## how to compile
 ```Bash
+gcc rsaKey.c -o rsaKey -lcrypto
+gcc hash.c -o hash -lcrypto
+gcc hmac.c -o hmac -lcrypto
 gcc genCert.c -o genCert -lcrypto
 ```
