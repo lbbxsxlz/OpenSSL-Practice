@@ -54,7 +54,6 @@ int main(int argc, char **argv)
 {
     unsigned int len = 0;
     const char *txt = "Hello world, hello hash!";
-    const char *keyStr = "123456789abcdef";
    
     //printf("0x%lx \n", OpenSSL_version_num());
     //printf("SHA512_DIGEST_LENGTH = %d \n", SHA512_DIGEST_LENGTH);
