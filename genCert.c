@@ -41,7 +41,7 @@ EVP_PKEY* generate_rsa_key()
         goto quit;
     }
 	
-	/* Assign rsa key to pkey. */
+    /* Assign rsa key to pkey. */
     /* Allocate memory for the EVP_PKEY structure. */
     EVP_PKEY *pkey = EVP_PKEY_new();
     if(!pkey) {
@@ -73,7 +73,7 @@ quit:
 }
 
 /* Generates a self-signed x509 certificate. */
-X509* generate_x509(EVP_PKEY * pkey)
+X509* generate_x509(EVP_PKEY *pkey)
 {
     /* Allocate memory for the X509 structure. */
     X509 * x509 = X509_new();
@@ -100,8 +100,8 @@ X509* generate_x509(EVP_PKEY * pkey)
     X509_NAME_add_entry_by_txt(name, "C",  MBSTRING_ASC, (unsigned char *)"CN",        -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "ST", MBSTRING_ASC, (unsigned char *)"SH",        -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "L",  MBSTRING_ASC, (unsigned char *)"SH",        -1, -1, 0);
-    X509_NAME_add_entry_by_txt(name, "O",  MBSTRING_ASC, (unsigned char *)"Intel Corporation", -1, -1, 0);
-    X509_NAME_add_entry_by_txt(name, "OU", MBSTRING_ASC, (unsigned char *)"IPG", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "O",  MBSTRING_ASC, (unsigned char *)"MyCompany,Inc", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "OU", MBSTRING_ASC, (unsigned char *)"QA", -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, (unsigned char *)"OpenSSL Group", -1, -1, 0);
     
     /* Now set the issuer name. */
@@ -117,7 +117,7 @@ X509* generate_x509(EVP_PKEY * pkey)
     return x509;
 }
 
-bool write_to_disk(EVP_PKEY * pkey, X509 * x509)
+bool write_to_disk(EVP_PKEY *pkey, X509 *x509)
 {
     /* Open the PEM file for writing the key to disk. */
     FILE *pkey_file = fopen("rsakey.pem", "wb");
@@ -154,7 +154,7 @@ bool write_to_disk(EVP_PKEY * pkey, X509 * x509)
     return true;
 }
 
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
     /* Generate the key. */
     printf("Generating RSA key...");
