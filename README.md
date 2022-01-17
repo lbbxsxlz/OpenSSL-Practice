@@ -2,6 +2,7 @@
 Using OpenSSL API to implement some applications
 
 ## Deploy development environment
+according to openssl-1.1.1g or OpenSSL 1.1.1  11 Sep 2018
 ```Bash
 sudo apt-get install openssl
 sudo apt-get install libssl-dev
