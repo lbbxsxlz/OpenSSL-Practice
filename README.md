@@ -19,6 +19,17 @@ sudo make install
 
 include header path: /usr/local/include/openssl
 
+## openssl cmd
+X509 certificate
+```bash
+ openssl genrsa -out t1.key 2048
+ openssl req -new -in t1.key -out t1.csr
+ openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365
+ openssl x509 -req -days 365 -in t1.csr -signkey key.pem -out t1.crt
+ openssl x509 -in t1.crt -noout -text
+openssl x509 -in cert.cer -inform DER -outform PEM -out cert.pem
+```
+
 ## how to compile
 ```Bash
 gcc rsaKey.c -o rsaKey -lcrypto
