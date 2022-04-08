@@ -29,6 +29,15 @@ openssl x509 -req -days 365 -in t1.csr -signkey key.pem -out t1.crt
 openssl x509 -in t1.crt -noout -text
 openssl x509 -in cert.cer -inform DER -outform PEM -out cert.pem
 ```
+
+sign csr
+```
+openssl req -newkey rsa:3072 -new -nodes -x509 -days 365 -out rootca.crt -keyout rootca.key -subj "/C=CN/ST=ShangHai/L=MinHang/O=Intel/CN=localhost"
+openssl rand -writerand .rnd
+openssl genrsa -out alice.key 3072
+openssl req -new -key alice.key -out alice.csr -subj "/C=CN/ST=Beijing/L=Haidian/O=Myexample/CN=alice"
+openssl x509  -req -in alice.csr -extfile <(printf "subjectAltName=DNS:localhost.alice") -CA rootca.crt -CAkey rootca.key -days 365 -sha256 -CAcreateserial -out alice.crt
+```
 ## aes encrypt and decrypt
 ```bash
 echo -n "Hello world, hello aes cipher!" > text
