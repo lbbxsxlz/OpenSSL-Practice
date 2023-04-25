@@ -39,12 +39,18 @@ openssl req -new -key alice.key -out alice.csr -subj "/C=CN/ST=Beijing/L=Haidian
 openssl x509  -req -in alice.csr -extfile <(printf "subjectAltName=DNS:localhost.alice") -CA rootca.crt -CAkey rootca.key -days 365 -sha256 -CAcreateserial -out alice.crt
 ```
 ## aes encrypt and decrypt
+![image](https://user-images.githubusercontent.com/16954002/151516046-be2b5c89-567c-4112-b455-8acbe97ecc67.png)
 ```bash
 echo -n "Hello world, hello aes cipher!" > text
 openssl enc -aes-256-cbc -e -in text -out text.enc -K 6D626564746C73206165732063697068657221 -iv C10F5DC70603548769AEFFB5C4A97597
 hexdump -C text.enc
 openssl enc -aes-256-cbc -d -in text.enc -out text.d -K 6D626564746C73206165732063697068657221 -iv C10F5DC70603548769AEFFB5C4A97597
-cat text.d![image](https://user-images.githubusercontent.com/16954002/151516046-be2b5c89-567c-4112-b455-8acbe97ecc67.png)
+cat text.d
+```
+
+```
+openssl enc -aes-128-cbc -in uuid.txt -out uuid_en.txt -pass pass:AR-Dahua-IPC-General-17031000 -e
+openssl enc -aes-128-cbc -in uuid_en.txt -out uuid_de.txt -pass pass:AR-Dahua-IPC-General-17031000 -d
 ```
 
 ## how to compile
